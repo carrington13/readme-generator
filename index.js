@@ -22,46 +22,92 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
+const generateMarkdown = require('./src/generateMarkdown.js');
 
 
 // TODO: Create an array of questions for user input
-const questions = [];
+// Arr of ? objects.. call questions in .prompt
+const questions = [ 
+// title of project  
+  {
+  name: 'title',
+  type: 'input',
+  message: "What is the project's title?",
+},
+// description of project
+{
+  name: 'about',
+  type: 'input',
+  message: "Please enter a description of the project."
+},
+// languages used to write project
+{
+  name: 'languages',
+  type: 'checkbox',
+  message: 'What languages were used in the project? (Select All That Apply)',
+  choices: ['HTML', 'CSS', 'JavaScript', 'SQL', 'node.js', 'jQuery', 'bootstrap']
+},
+{
+name: 'contributions',
+type: 'input',
+message: 'Please enter all who contributed.'
+},
+{
+  name: 'license',
+  type: 'list',
+  message: 'Please select a license.',
+  choices: ['None'],
+},
+// Contact in question section email && github username
+{
+  name: 'email',
+  type: 'input',
+  message: 'Please enter your email.'
+},
+{
+  name: 'github',
+  type: 'input',
+  message: 'Please enter your GitHub username.'
+}
+
+
+];
 
 // needed info: 
   // Title of project
   // Description section, Table of Contents, Installation, Usage, License, Contributing, Tests, and Questions
 inquirer
-  .prompt([
-      {
-          name: 'title',
-          type: 'input',
-          message: "What is the project's title?",
-      },
-      {
-          name: 'description',
-          type: 'input',
-          message: "Please enter a description of the project."
-      },
-      {
-          name: 'languages',
-          // type: 'input',
-          //or
-          // type: 'checkbox'
-          message: 'What languages were used in the project?'
-          // choices: ['HTML', 'CSS', 'JavaScript', 'SQL]
-      },
-      {
-        name: 'contributions',
-        type: 'input',
-        message: 'Please enter all who contributed.'
-      },
-      {
-          name: 'license',
-          type: 'list',
-          message: 'Please select a license.',
-          choices: ['None'],
-      }
-  ])
+  .prompt( questions
+      // {
+      //     name: 'title',
+      //     type: 'input',
+      //     message: "What is the project's title?",
+      // },
+      // {
+      //     name: 'description',
+      //     type: 'input',
+      //     message: "Please enter a description of the project."
+      // },
+      // {
+      //     name: 'languages',
+      //     // type: 'input',
+      //     //or
+      //     // type: 'checkbox'
+      //     message: 'What languages were used in the project?'
+      //     // choices: ['HTML', 'CSS', 'JavaScript', 'SQL]
+      // },
+      // {
+      //   name: 'contributions',
+      //   type: 'input',
+      //   message: 'Please enter all who contributed.'
+      // },
+      // {
+      //     name: 'license',
+      //     type: 'list',
+      //     message: 'Please select a license.',
+      //     choices: ['None'],
+      // }
+  )
   .then(function(answers) {
 
       const title = answers.title;
