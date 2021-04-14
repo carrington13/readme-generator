@@ -24,147 +24,150 @@ const inquirer = require('inquirer');
 
 const generateMarkdown = require('./src/generateMarkdown.js');
 
-
+//const readMePage = generateMarkdown(data, license);
 // TODO: Create an array of questions for user input
 // Arr of ? objects.. call questions in .prompt
-const questions = [ 
 // title of project  
+const questions = [ 
+  // user github account  
   {
-  name: 'title',
-  type: 'input',
-  message: "What is the project's title?",
-},
-// description of project
-{
-  name: 'about',
-  type: 'input',
-  message: "Please enter a description of the project."
-},
-// languages used to write project
-{
-  name: 'languages',
-  type: 'checkbox',
-  message: 'What languages were used in the project? (Select All That Apply)',
-  choices: ['HTML', 'CSS', 'JavaScript', 'SQL', 'node.js', 'jQuery', 'bootstrap']
-},
-{
-name: 'contributions',
-type: 'input',
-message: 'Please enter all who contributed.'
-},
-{
-  name: 'license',
-  type: 'list',
-  message: 'Please select a license.',
-  choices: ['None'],
-},
-// Contact in question section email && github username
-{
-  name: 'email',
-  type: 'input',
-  message: 'Please enter your email.'
-},
-{
-  name: 'github',
-  type: 'input',
-  message: 'Please enter your GitHub username.'
-}
-
-
+    name: 'github',
+    type: 'input',
+    message: 'Please enter your GitHub username.',
+    validate: userNameInput => {
+      if (userNameInput) {
+        return true;
+      } else {
+        console.log('Please enter your github username!')
+      }
+    }
+  },
+  // user email  
+  {
+    name: 'email',
+    type: 'input',
+    message: 'Please enter your email.'
+  },
+  // title of project  
+    {
+    name: 'title',
+    type: 'input',
+    message: "What is the project's title?",
+    validate: projectTitle => {
+      if (projectTitle) {
+        return true;
+      } else {
+        console.log('Title Required!')
+        return false;
+      }
+    }
+  },
+  // description of project
+  {
+    name: 'about',
+    type: 'input',
+    message: "Please enter a description of the project.",
+    validate: projectAbout => {
+      if (projectAbout) {
+        return true;
+      } else {
+        console.log('Please enter a description of the project!');
+        return false;
+      }
+    }
+  },
+  // usage/contributing
+  {
+    name: 'confirmContributing',
+    type: 'confirm',
+    message: 'Would you like to add some guidelines for contributing to the project?',
+    default: false,
+  },
+  {
+    name: 'contributing',
+    type: 'input',
+    message: 'What needs to be known about contributing to the project?',
+    when: ({confirmContributing}) => {
+      if (confirmContributing) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
+  // languages used to write project
+  {
+    name: 'languages',
+    type: 'checkbox',
+    message: 'What did you use to build this project? (Select All That Apply)',
+    choices: ['HTML', 'CSS', 'JavaScript', 'SQL', 'node.js', 'jQuery', 'bootstrap', 'Ruby', 'Python']
+  },
+  // license for project
+  {
+    name: 'license',
+    type: 'list',
+    message: 'Please select a license.',
+    choices: ['MIT', 'APACHE 2.0', 'GPL 3.0', 'BSD 3', 'None'],
+    default: 'None'
+  },
+  // Who made it?
+  {
+    name: 'credits',
+    type: 'input',
+    message: 'Please enter all who contributed.'
+  },
+  // Tests?
+  {
+    name: 'confirmTest',
+    type: 'confirm',
+    message: 'Would you like to enter information about tests?',
+    default: true,
+  },
+  {
+    name: 'test',
+    type: 'input',
+    message: 'What command should be used to run tests?',
+    when: ({ confirmTest }) => {
+      if (confirmTest) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    
+  }
 ];
 
-// needed info: 
-  // Title of project
-  // Description section, Table of Contents, Installation, Usage, License, Contributing, Tests, and Questions
-inquirer
-  .prompt( questions
-      // {
-      //     name: 'title',
-      //     type: 'input',
-      //     message: "What is the project's title?",
-      // },
-      // {
-      //     name: 'description',
-      //     type: 'input',
-      //     message: "Please enter a description of the project."
-      // },
-      // {
-      //     name: 'languages',
-      //     // type: 'input',
-      //     //or
-      //     // type: 'checkbox'
-      //     message: 'What languages were used in the project?'
-      //     // choices: ['HTML', 'CSS', 'JavaScript', 'SQL]
-      // },
-      // {
-      //   name: 'contributions',
-      //   type: 'input',
-      //   message: 'Please enter all who contributed.'
-      // },
-      // {
-      //     name: 'license',
-      //     type: 'list',
-      //     message: 'Please select a license.',
-      //     choices: ['None'],
-      // }
-  )
-  .then(function(answers) {
-
-      const title = answers.title;
-      const description = answers.description;
-      const languages = answers.languages;
-      const contributions = answers.contributions;
-      console.log(title, description, languages, contributions);
-  }) 
-
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+  // const generatePage = require('./src/page-template.js');
+
+// const pageHTML = generatePage(name, github);
+fs.writeFile(`./${fileName}`, generateMarkdown(data), err => {
+  if (err) throw new Error(err);
+
+  console.log('README.md Complete!')
+})
+}
 
 // TODO: Create a function to initialize app
 function init() {
-    inquirer
-      .prompt([
-        {
-            name: 'title',
-            type: 'input',
-            message: "What is the project's title?",
-        },
-        {
-            name: 'description',
-            type: 'input',
-            message: "Please enter a description of the project."
-        },
-        {
-            name: 'languages',
-            // type: 'input',
-            //or
-            // type: 'checkbox'
-            message: 'What languages were used in the project?'
-            // choices: ['HTML', 'CSS', 'JavaScript', 'SQL]
-        },
-        {
-          name: 'contributions',
-          type: 'input',
-          message: 'Please enter all who contributed.'
-        },
-        {
-            name: 'license',
-            type: 'list',
-            message: 'Please select a license.',
-            choices: ['None'],
-        }
-      ])
-
-      // change function to call writeToFile 
-      .then(function(answers) {
-  
-        const title = answers.title;
-        const description = answers.description;
-        const languages = answers.languages;
-        const contributions = answers.contributions;
-        console.log(title, description, languages, contributions);
-      }) 
-  }
+  inquirer
+  // ask the questions
+  .prompt(questions)
+  // then get the answers
+  .then(answers => {
+    console.log(answers);
+  })
+  .catch(error => {
+    if(error.isTTYError) {
+      console.log("Prompt couldn't be rendered in the current environment");
+    } else {
+      console.log('Something else went wrong');
+      console.log(error);
+    }
+  })
+}
 
 // Function call to initialize app
-//init();
+init();
