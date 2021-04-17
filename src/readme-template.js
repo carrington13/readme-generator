@@ -8,81 +8,154 @@
 // [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 //[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 //[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+const licenseObjArr = [
+  // TODO ADD NAME TO COPYRIGHT
+  {
+    name: 'MIT',
+    badge: `![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)`,
+    link: `[MIT](https://opensource.org/licenses/MIT)`,
+    text: `
+    Copyright ${new Date().getFullYear()}
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.`
+  },
+  {
+    name: 'APACHE 2.0',
+    badge: `![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)`,
+    link: `[APACHE 2.0](https://opensource.org/licenses/Apache-2.0)`,
+    text: `
+    Copyright ${new Date().getFullYear()} [name of copyright owner]
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+ 
+      http://www.apache.org/licenses/LICENSE-2.0
+ 
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+    `
+  },
+  {
+    name: 'BSD 3.0',
+    badge: `[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)`,
+    link: `[BSD 3](https://opensource.org/licenses/BSD-3-Clause)`,
+    text: `Copyright ${new Date().getFullYear()} <COPYRIGHT HOLDER>
+
+    Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+    
+    1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    
+    2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+    
+    3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+    
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.`
+  }
+]
+
 
 function renderLicenseBadge(license) {
-  if (license === 'MIT') {
-    const badge =`[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`
-  } else if (license === 'APACHE 2.0') {
-    badge = `[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)`
-  } else if (license === 'GPL 3.0') {
-    badge = `[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)`
-  } else if (license === 'BSD 3') {
-    badge = `[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)`
-  } else {
-    badge = ''
-  }
+  licenseObj = licenseObjArr.filter( object => object.name === license); 
+
+  return `${licenseObj[0].badge}`
+
+  //   console.log(license)
+//   if (license === 'MIT') {
+//     return `![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)`
+//   } else if (license === 'APACHE 2.0') {
+//     return `![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)`
+//   } else if (license === 'GPL 3.0') {
+//     return `![License: GPL v3](https://img.shields.io/badge/License-GPL%203-blue.svg)`
+//   }  else if (license === 'BSD 3') {
+//     return `[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)`
+//   } else {
+//     return ``
+//   }
 }
 
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
-function renderLicenseLink(license) {}
+function renderLicenseLink(license) {
+  if (license === 'MIT') {}
+}
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {}
 
+function checkContributing( userChoice ) {
 
+}
+
+function checkTest( userChoice ) {
+  if (userChoice === false) {
+
+  }
+}
 // tests added if selected
 // usage too
 // TODO: Create a function to generate markdown for README
-function generateMarkdown(data) {
+module.exports = data => {
+  const {title, license, installation, credits, ...usage} = data;
+
   return `
-  # ${data.title}
-  
-  ## Table Of Contents
-  * [Installation](#installation)
-  * [Usage](#usage)
-  * [Contributions](#contributions)
-  * [Tests](#tests)
-  * [Questions](#questions)
-  * [License](#license)
-  
-  ## Description
-    ${data.about}
+# ${title}
 
-    ## Usage
-    ${data.usage}
+${renderLicenseBadge(license)}
 
-  ## Installation
-    To install necessary dependencies, run the following command:
-    // npm ci?
-    ...
-    ${data.installation}
-    ...
-
-  ## Languages
-    ${data.languages}
-
-  ## Contributions
-    ${data.contributions}
-  
-  ## Tests
-    ${data.test}
-
-    ## Questions
-    ### GitHub
-    [${data.github}](https://github.com/${github})
-
-    ### Email
-    ${data.email}
+## Table Of Contents
+* [Installation](#installation)
+* [Usage](#usage)
+* [Credits](#credits)
+* [License](#license)
 
 
-  ## License
-    ${data.license}
+## Installation
+${installation}
+
+
+## Usage
+
+### Description
+${usage.about}
+
+
+### Languages
+${usage.languages}
+
+${checkContributing(usage.promptForContributing)}
+### Contributing
+${usage.contributing}
+${checkTest(usage.promptForTest)}
+### Tests
+${checkTest(usage.test)}
+
+### Questions
+
+#### GitHub
+[${usage.github}](https://github.com/${usage.github})
+
+#### Email
+${usage.email}
+
+
+## Credits
+${credits}
+
+## License
+${license}
 `;
 }
 
-module.exports = generateMarkdown;
+
 
 // Temporary Reference of Instructions
 // GIVEN a command-line application that accepts user input

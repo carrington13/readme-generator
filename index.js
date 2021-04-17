@@ -21,8 +21,9 @@
 // TODO: Include packages needed for this application
 const fs = require('fs');
 const inquirer = require('inquirer');
-
-const generateMarkdown = require('./src/generateMarkdown.js');
+const writeReadMe = require('./utils/writeReadMe.js')
+//const fileTemplate = require('./src/readme-template.js');
+const pageData = require('./src/readme-template.js');
 
 //const readMePage = generateMarkdown(data, license);
 // TODO: Create an array of questions for user input
@@ -76,24 +77,19 @@ const questions = [
       }
     }
   },
-  // usage/contributing
+  // installation
   {
-    name: 'confirmContributing',
-    type: 'confirm',
-    message: 'Would you like to add some guidelines for contributing to the project?',
-    default: false,
+    name: 'installation',
+    type: 'input',
+    message: 'Installation instructions?',
+    default: '',
   },
+  // usage/contributing
   {
     name: 'contributing',
     type: 'input',
     message: 'What needs to be known about contributing to the project?',
-    when: ({confirmContributing}) => {
-      if (confirmContributing) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+    default: '',
   },
   // languages used to write project
   {
@@ -108,7 +104,7 @@ const questions = [
     type: 'list',
     message: 'Please select a license.',
     choices: ['MIT', 'APACHE 2.0', 'GPL 3.0', 'BSD 3', 'None'],
-    default: 'None'
+    default: 'None',
   },
   // Who made it?
   {
@@ -116,58 +112,80 @@ const questions = [
     type: 'input',
     message: 'Please enter all who contributed.'
   },
-  // Tests?
-  {
-    name: 'confirmTest',
-    type: 'confirm',
-    message: 'Would you like to enter information about tests?',
-    default: true,
-  },
+  // test
   {
     name: 'test',
     type: 'input',
     message: 'What command should be used to run tests?',
-    when: ({ confirmTest }) => {
-      if (confirmTest) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-    
+    default: '',
   }
+
 ];
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-  // const generatePage = require('./src/page-template.js');
+// // TODO: Create a function to write README file
+// function writeToFile(fileName, data) {
+//   // const generatePage = require('./src/page-template.js');
 
-// const pageHTML = generatePage(name, github);
-fs.writeFile(`./${fileName}`, generateMarkdown(data), err => {
-  if (err) throw new Error(err);
+// // const pageHTML = generatePage(name, github);
+// return new Promise((resolve, reject) => {
+//   fs.writeFile('./dist/readme.md', fileContent, err => {
+//     // if theres an error, reject the promise and send the error to the promises catch method
+//     if (err) {
+//       reject(err);
+//       // return out of te function here to make sure the promise doesnt accidentally execute the resolve function as well
+//       return;
+//     }
 
-  console.log('README.md Complete!')
-})
+//     // if everything went well, resolve the promise and send the successful data to the .then method
+//     resolve({
+//         ok: true,
+//         message: 'File created!'
+//     });
+//   });    
+// });
+// }
+
+const mockAnswers = {
+  github: 'carrington13',
+  email: 'caseyarrington13@gmail.com',
+  title: 'README-Generator',
+  about: 'Create a quality README file for your project from the command line',
+  installation: 'Run npm install',
+  contributing: 'Be respectful',
+  languages: [ 'JavaScript', 'node.js' ],
+  license: 'APACHE 2.0',
+  credits: 'Starter Code/initial files provided by Trilogy Education. The rest by: Casey Arrington',
+  test: 'No Tests'
 }
 
 // TODO: Create a function to initialize app
-function init() {
-  inquirer
-  // ask the questions
-  .prompt(questions)
-  // then get the answers
-  .then(answers => {
-    console.log(answers);
-  })
-  .catch(error => {
-    if(error.isTTYError) {
-      console.log("Prompt couldn't be rendered in the current environment");
-    } else {
-      console.log('Something else went wrong');
-      console.log(error);
-    }
-  })
-}
+// function init() {
+//   inquirer
+//   // ask the questions
+//   .prompt(questions)
+//   // then get the answers
+//   //.then(dataResponse => {
+//   .then(mockAnswers => {  
+//   //console.log(dataResponse);
+//     return generateMarkdown(mockAnswers);
+//   })
+//   .then(readMeData => {
+//      //console.log(readMeData);
+//      return generateReadMe(readMeData);
+//   })
+//   .catch(error => {
+//     if(error.isTTYError) {
+//       console.log("Prompt couldn't be rendered in the current environment");
+//     } else {
+//       console.log('Something else went wrong');
+//       console.log(error);
+//     }
+//   })
+//}
 
 // Function call to initialize app
-init();
+//init();
+
+writeReadMe(
+  pageData(mockAnswers)
+)
