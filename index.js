@@ -1,8 +1,5 @@
-// TODO: Include packages needed for this application
-// const fs = require('fs');
 const inquirer = require('inquirer');
-const writeReadMe = require('./utils/writeReadMe.js')
-//const fileTemplate = require('./src/readme-template.js');
+const writeReadMe = require('./utils/writeReadMe.js');
 const pageData = require('./src/readme-template.js');
 
  
