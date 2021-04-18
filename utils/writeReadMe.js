@@ -1,8 +1,5 @@
 const fs = require('fs');
-// ----------
-// README.md file write
 
-// named generateReadMe in index. 
 // README file Writer
 module.exports = readmeContent => {
   return new Promise((resolve, reject) => {

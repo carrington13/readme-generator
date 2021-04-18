@@ -5,10 +5,7 @@ const writeReadMe = require('./utils/writeReadMe.js')
 //const fileTemplate = require('./src/readme-template.js');
 const pageData = require('./src/readme-template.js');
 
-//const readMePage = generateMarkdown(data, license);
-// TODO: Create an array of questions for user input
-// Arr of ? objects.. call questions in .prompt
-// title of project  
+ 
 const questions = [ 
   // user github account  
   {
@@ -127,22 +124,6 @@ const questions = [
   }
 
 ];
-
-
-const mockAnswers = {
-  
-    github: 'Carrington13',
-    email: 'caseyarrington13@gmail.com',
-    title: 'ReadME generator',
-    about: 'A node-powered app that generates a quality readme from user CL responses',
-    installation: 'npm install',
-    checkContributing: false,
-    languages: [ 'JavaScript', 'ES6', 'Node' ],
-    license: 'APACHE 2.0',
-    copyrightHolder: 'Casey Arrington',
-    credits: 'Casey Arrington, Initial Files/ Starter Code provided by Trilogy, All License Related Data/Code: https://gist.github.com/lukas-h/2a5d00690736b4c3a7ba',
-    checkTest: false
-}
 
 // TODO: Create a function to initialize app
 function init() {
