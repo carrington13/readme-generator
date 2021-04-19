@@ -39,6 +39,7 @@ caseyarrington13@gmail.com
 Casey Arrington
 Starter Code provided by: Trilogy Education Services
 License Badges and Links: https://gist.github.com/lukas-h/2a5d00690736b4c3a7ba
+Video to WEBP converter: https://www.onlineconverter.com/video-to-webp
 
 
 
