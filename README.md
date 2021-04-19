@@ -10,10 +10,13 @@
 
 
 ## Installation
-npm install
+Use 'npm install' to install all dependencies.
 
 
 ## Usage
+
+### Run Command
+Use 'node index' from Command Line while inside the file directory
 
 ### Description
 A node-powered quality README generator built from CL input.
