@@ -22,7 +22,8 @@ A node-powered quality README generator built from CL input.
 JavaScript, ES6, Node.js, inquirer.js
 
 
-
+### Walk-Through
+![screenshot](./assets/video/walkthrough-for-readme.webp)
 
 
 ### Questions

@@ -19,7 +19,7 @@ const licenseObjArr = [
   // BSD 3.0 LICENSE OBJECT
   {
     name: 'BSD 3',
-    badge: `[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)`,
+    badge: `![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)`,
     link: `[Read More About BSD 3 Here](https://opensource.org/licenses/BSD-3-Clause)`,
   }
 ]
